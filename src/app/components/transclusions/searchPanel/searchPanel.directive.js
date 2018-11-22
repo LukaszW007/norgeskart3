@@ -454,12 +454,14 @@ angular.module('searchPanel')
             var availableUTMZones = searchPanelFactory.getAvailableUTMZones();
             if (availableUTMZones.indexOf(epsg) > -1) {
               scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, 'EPSG:' + epsg, 'coordUtm', ''));
+              scope.activeSearchResult.info = 'EPSG:' + epsg;
               return true;
             }
             if (epsg) {
               var sosi = mainAppService.getSOSIfromEPSG(epsg);
               if (sosi) {
                 var koordTransUrl = mainAppService.generateKoordTransUrl(params.north.value, params.east.value, '', sosi);
+                scope.activeSearchResult.info = 'EPSG:' + epsg;
                 $http.get(koordTransUrl).then(function (response) {
                   if (response.data.hasOwnProperty('kode') && response.data.kode !== 0) {
                     console.error(response.data);
@@ -476,31 +478,37 @@ angular.module('searchPanel')
               if (((params.east.value > 32.88) && (params.north.value > -16.1)) && ((params.east.value < 84.17) && (params.north.value < 39.65))) {
                 epsg = 'EPSG:4258';
                 scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordGeo', ''));
+                scope.activeSearchResult.info = epsg;
                 return true;
               } else if (((params.north.value > 32.88) && (params.east.value > -16.1)) && ((params.north.value < 84.17) && (params.east.value < 39.65))) {
                 epsg = 'EPSG:4258';
                 scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordGeo', ''));
+                scope.activeSearchResult.info = epsg;
                 return true;
               } else if (((params.east.value > -2465220.60) && (params.north.value > 4102904.86)) && ((params.east.value < 771164.64) && (params.north.value < 9406031.63))) {
                 epsg = 'EPSG:25833';
                 scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
+                scope.activeSearchResult.info = epsg;
                 //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.east.value > -128551.4542) && (params.north.value > 6404024.705)) && ((params.east.value < 1148218.099) && (params.north.value < 8010780.591))) {
                 epsg = 'EPSG:25833';
                 SosiCode = 23;
                 scope.showQueryPoint(scope.contructQueryPoint(params.north.value, params.east.value, epsg, 'coordUtm', ''));
+                scope.activeSearchResult.info = epsg;
                 //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.north.value > -2465220.60) && (params.east.value > 4102904.86)) && ((params.north.value < 771164.64) && (params.east.value < 9406031.63))) {
                 epsg = 'EPSG:25833';
                 scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
+                scope.activeSearchResult.info = epsg;
                 //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               } else if (((params.north.value > -128551.4542) && (params.east.value > 6404024.705)) && ((params.north.value < 1148218.099) && (params.east.value < 8010780.591))) {
                 epsg = 'EPSG:25833';
                 SosiCode = 23;
                 scope.showQueryPoint(scope.contructQueryPoint(params.east.value, params.north.value, epsg, 'coordUtm', ''));
+                scope.activeSearchResult.info = epsg;
                 //scope.searchBarModel += '@' + scope.mapEpsg.split(':')[1];
                 return true;
               }
